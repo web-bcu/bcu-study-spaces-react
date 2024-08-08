@@ -20,15 +20,20 @@ axios.defaults.baseURL = 'https://backend-mongodb-test.onrender.com';
 // axios.defaults.baseURL = "http://localhost:8000";
 export default function App() {
   const [loggedIn, setLoggedIn] = useState();
-  const {user} = useContext(UserContext);
+  const {user, fetchUser, setUser} = useContext(UserContext);
   const location = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (location.pathname === "/" && user !== null) {
+    if (location.pathname === "/" && user !== null && user !== "loading") {
       navigate('/forum');
     }
-  }, [location.pathname, user]);
+    if (localStorage.getItem("token") === null) {
+      setUser(null);
+    }
+  }, [location.pathname, user]
+  // []
+);
 
   if (user === "loading") {
     return <Loading/>

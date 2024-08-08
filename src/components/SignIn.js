@@ -170,7 +170,7 @@ function Login({showLogin, handleShow}) {
                 localStorage.setItem("token", data.token)
                 setUserLoggedIn(true);
                 setIsSigningIn(false);
-                fetchUser(data.token);
+                fetchUser();
             }
         } catch(error) {
             console.log(error);

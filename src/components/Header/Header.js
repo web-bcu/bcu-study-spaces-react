@@ -38,7 +38,7 @@ export default function Header({toggleActive}) {
                         alt='User Image'/>
                     </a>
                     <div className="user">
-                        <h1 className={`bg-gradient-to-r ${admin ? " from-[#FF930F]  to-[#FFF95B] text-3xl" : "text-xl"} inline-block text-transparent bg-clip-text`}>{user?.name}</h1>
+                        <h1 className={`bg-gradient-to-r ${admin ? " from-[#FF930F]  to-[#FFF95B] text-3xl" : "text-xl from-[#ebf4f5]  to-[#b5c6e0]"} inline-block text-transparent bg-clip-text`}>{user?.name}</h1>
                     </div>
                 </div>
             </div>

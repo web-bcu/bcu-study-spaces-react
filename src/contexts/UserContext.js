@@ -23,12 +23,13 @@ export function UserContextProvider({ children }) {
         }
     }
 
-    const fetchUser = async (token) => {
+    const fetchUser = async () => {
+        const storedToken = localStorage.getItem("token");
         try {
             if (!user || user === "loading") {
                 const { data } = await axios.get('/user/profile', { 
                     headers: {
-                        Authorization: token
+                        Authorization: storedToken
                     }
                 })
                 
@@ -62,8 +63,7 @@ export function UserContextProvider({ children }) {
 
 
     useEffect(() => {
-        const storedToken = localStorage.getItem("token");
-        fetchUser(storedToken)
+        fetchUser();
     }, [user]);
 
     const valueToPass = { user, setUser, userLoggedIn, fetchFiles, fileList, fetchUser, setUserLoggedIn }
