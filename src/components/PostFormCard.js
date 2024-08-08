@@ -63,11 +63,11 @@ export default function PostFormCard({ onPost }) {
                 userId: user?.id,
                 content: content,
             }
-            const {data} = await axios.post("http://localhost:8000/post/create", postData);
+            const {data} = await axios.post("/post/create", postData);
             const {_id} = data;
             for (let i = 0; i < fileList.length; i++) {
                 const fileData = {...fileList[i], parentId: _id}
-                await axios.post("http://localhost:8000/file/create", fileData);
+                await axios.post("/file/create", fileData);
             }
         } catch (error) {
             console.log(error);
