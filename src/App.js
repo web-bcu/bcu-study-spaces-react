@@ -11,6 +11,8 @@ import { Toaster } from "sonner";
 import SignIn from "./components/SignIn";
 import Folder from "./components/Folder";
 import PuzzleGame from "./components/PuzzleGame/PuzzleGame";
+import SudokuSolver from "./components/SudokuSolver/SudokuSolver";
+import TicTacToe from "./components/TicTacToe/TicTacToe";
 
 axios.defaults.withCredentials = true
 axios.defaults.baseURL = 'http://localhost:8000';
@@ -31,6 +33,12 @@ export default function App() {
   }
   else if (location.pathname.includes('/games/puzzle_game')) {
     return <PuzzleGame/>
+  }
+  else if (location.pathname.includes('/games/sudoku_solver')) {
+    return <SudokuSolver/>
+  }
+  else if (location.pathname.includes('/games/tic_tac_toe')) {
+    return <TicTacToe/>
   }
   
   return (

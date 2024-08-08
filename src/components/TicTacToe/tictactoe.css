@@ -1,0 +1,108 @@
+.tictactoe {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    /* background-color: rgb(219, 218, 218); */
+    background-color:#0d171f;
+    font-family: 'Pacifio';
+}
+
+.title {
+    font-size: 60px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: white;
+}
+
+.board-tic-tac-toe {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.row {
+    display: flex;
+    flex-direction: row;
+    gap: 3px;
+}
+
+.custom-button {
+    width: 6rem;
+    /* w-24 equivalent */
+    height: 6rem;
+    /* h-24 equivalent */
+    /* background-color: white; */
+    background-color: #192938;
+    /* bg-white equivalent */
+    /* border: 2px solid #d1d5db; */
+    border: 2px solid #0998a8;
+    /* border-2 border-gray-300 equivalent */
+    font-size: 1.5rem;
+    /* text-2xl equivalent */
+    transition: background-color 0.2s ease-in-out;
+    color: white;
+    /* transition duration-200 ease-in-out equivalent */
+}
+
+.custom-button:hover {
+    background-color: #f3f4f6;
+    /* hover:bg-gray-100 equivalent */
+}
+
+.custom-button:focus {
+    /* background-color: #e5e7eb; */
+    background-color: #0d171f;
+    /* focus:bg-gray-200 equivalent */
+    outline: none;
+    /* focus:outline-none equivalent */
+}
+
+.status {
+    font-size: 1rem;
+    color: white;
+}
+
+.status-win {
+    font-size: 4rem;
+    margin-top: 10px;
+    color: #0998a8;
+    font-weight: 700;
+}
+
+/* .App-logo {
+    height: 40vmin;
+    pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .App-logo {
+        animation: App-logo-spin infinite 20s linear;
+    }
+}
+
+.App-header {
+    background-color: #282c34;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+}
+
+.App-link {
+    color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+    from {
+        transform: rotate(0deg);
+    }
+
+    to {
+        transform: rotate(360deg);
+    }
+} */

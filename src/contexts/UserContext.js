@@ -41,7 +41,7 @@ export function UserContextProvider({children}) {
 
     useEffect(() => {
         if (!user) {
-            axios.get('http://localhost:8000/user/profile').then(({data}) => {
+            axios.get('/user/profile').then(({data}) => {
                 if (data.error) {
                     console.log(data.error)
                 }
