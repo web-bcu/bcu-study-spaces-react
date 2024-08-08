@@ -1,5 +1,7 @@
+import Board from "../Board/Board"
+
 export default function PuzzleGame() {
     return (
-        <h1>Puzzle Game</h1>
+        <div className="h-screen flex items-center justify-center bg-[#0d171f]"><Board/></div>
     )
 }

@@ -1,0 +1,103 @@
+.number {
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    align-content: center;
+    justify-content: center;
+    background: #342956;
+    font-size: 50px;
+    color: white;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: left .4s ease-in-out, top .4s ease-in-out;
+}
+
+.number.correct {
+    background: #6e50b4;
+}
+
+.number.slot--0 {
+    left: 0px;
+    top: 0;
+}
+
+.number.slot--1 {
+    left: calc(100px);
+    top: 0;
+}
+
+.number.slot--2 {
+    left: calc(2 * 100px);
+    top: 0;
+}
+
+.number.slot--3 {
+    left: calc(3 * 100px);
+    top: 0;
+}
+
+.number.slot--4 {
+    left: 0;
+    top: calc(100px);
+}
+
+.number.slot--5 {
+    left: calc(100px);
+    top: calc(100px);
+}
+
+.number.slot--6 {
+    left: calc(2 * 100px);
+    top: calc(100px);
+}
+
+.number.slot--7 {
+    left: calc(3 * 100px);
+    top: calc(100px);
+}
+
+.number.slot--8 {
+    left: 0;
+    top: calc(2 * 100px);
+}
+
+.number.slot--9 {
+    left: calc(100px);
+    top: calc(2 * 100px);
+}
+
+.number.slot--10 {
+    left: calc(2 * 100px);
+    top: calc(2 * 100px);
+}
+
+.number.slot--11 {
+    left: calc(3 * 100px);
+    top: calc(2 * 100px);
+}
+
+.number.slot--12 {
+    left: 0;
+    top: calc(3 * 100px);
+}
+
+.number.slot--13 {
+    left: calc(100px);
+    top: calc(3 * 100px);
+}
+
+.number.slot--14 {
+    left: calc(2 * 100px);
+    top: calc(3 * 100px);
+}
+
+.number.slot--15 {
+    left: calc(3 * 100px);
+    top: calc(3 * 100px);
+}
+
+.number.disabled {
+    pointer-events: none;
+    background-color: transparent;
+}
