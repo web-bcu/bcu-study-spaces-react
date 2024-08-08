@@ -1,0 +1,18 @@
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+.game{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+.board {
+    display: grid;
+    grid-template-columns: repeat(4,100px);
+    grid-template-rows: repeat(4,100px);
+    border-radius: 10px;
+    position: relative;
+    overflow: hidden;
+    border: 10px solid #55ab9f;
+    font-family: 'Pacifico', cursive;
+}
