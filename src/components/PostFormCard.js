@@ -16,8 +16,6 @@ export default function PostFormCard({ onPost }) {
     const [isCreating, setIsCreating] = useState(false);
     const [content, setContent] = useState("");
     const [fileList, setFileList] = useState([]);
-    const showPostForm = useSelector((state) => state.showPostForm);
-    const dispatch = useDispatch();
 
     async function uploadPhoto(file) {
         const storageRef = ref(storage, `${user.email}/${file.name}`);
@@ -60,9 +58,9 @@ export default function PostFormCard({ onPost }) {
         e.preventDefault();
         try {
             setIsCreating(true);
-            const userId = user._id;
+            const userId = user?._id;
             const postData = {
-                userId: user.id,
+                userId: user?.id,
                 content: content,
             }
             const {data} = await axios.post("http://localhost:8000/post/create", postData);

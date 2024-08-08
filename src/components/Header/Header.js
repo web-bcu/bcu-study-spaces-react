@@ -1,14 +1,10 @@
-import { useLocation } from "react-router-dom";
 import { useAuth } from "../../contexts/UserContext";
-import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import './Header.css';
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFloppyDisk } from "@fortawesome/free-solid-svg-icons";
 
 export default function Header({toggleActive}) {
     const {user} = useAuth();
-    const location = useLocation();
-    const dispatch = useDispatch();
+    const admin = useSelector(state => state.admin)
 
     const userProfile = () => {
         window.location = `/profile/${user?._id}`;
@@ -35,15 +31,14 @@ export default function Header({toggleActive}) {
                     <FontAwesomeIcon icon={faFloppyDisk}/>
                     <span className='bag bg-gradient-to-r from-[#432371] to-[#faae7b]'>0</span>
                 </a> */}
-                <div className='avatar justify-center items-center' onClick={userProfile}>
+                <div className='avatar justify-start items-center' onClick={userProfile}>
                     <a href='#'>
                         <img 
                         src={user?.avatar} 
                         alt='User Image'/>
                     </a>
                     <div className="user">
-                        <h1 className="bg-gradient-to-r from-[#432371] to-[#faae7b] inline-block text-transparent bg-clip-text text-xl">{user?.name}</h1>
-                        <a href="#">View Profile</a>
+                        <h1 className={`bg-gradient-to-r ${admin ? " from-[#FF930F]  to-[#FFF95B] text-3xl" : "text-xl"} inline-block text-transparent bg-clip-text`}>{user?.name}</h1>
                     </div>
                 </div>
             </div>

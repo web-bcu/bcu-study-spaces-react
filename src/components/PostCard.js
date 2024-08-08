@@ -17,24 +17,12 @@ export default function PostCard({ post, onPost }) {
     const { user } = useAuth();
     const [postOwner, setPostOwner] = useState();
     const [dropDownOpen, setDropDownOpen] = useState(false);
-    // const { fileList } = FetchFiles(post.id);
     const [isSaved, setIsSaved] = useState(false);
-    // const info = { userId: user?.id, post_id: post._id }
-    // const { savedPost } = FetchIsSaved(info);
     const [likes, setLikes] = useState();
     const [fileList, setFileList] = useState([]);
     const [allUser, setAllUser] = useState([]);
     const [isLikedByMe, setIsLikedByMe] = useState(false);
 
-    // useEffect(() => {
-    //     if (savedPost.length > 0) {
-    //         setIsSaved(true);
-    //     }
-    //     else {
-    //         setIsSaved(false);
-    //     }
-    //     fetchLikes()
-    // }, [savedPost.length, likes]);
     useEffect(() => {
         axios.get(`/user/get?userId=${post.userId}`)
             .then(({ data }) => setPostOwner(data))
@@ -42,28 +30,16 @@ export default function PostCard({ post, onPost }) {
         fetchFiles(post._id);
     }, []);
 
-    // useEffect(() => {
-    //     axios.get(`/save/getuser?postId=${post._id}`)
-    //         .then(({ data }) => {
-    //             const allUser = data.filter(info => info.userId)
-    //             setAllUser(allUser);
-    //             if (allUser.includes(user.id)) {
-    //                 setIsSaved(true);
-    //             } else {
-    //                 setIsSaved(false);
-    //             }
-    //         }).catch((error) => console.log(error));
-    // }, [isSaved])
     useEffect(() => {
         axios.get(`/save/getuser?postId=${post._id}`)
             .then(({ data }) => {
                 const allUsers = data.filter(info => info.userId);
     
-                const userIsSaved = allUsers.some(info => info.userId === user.id);
+                const userIsSaved = allUsers.some(info => info.userId === user?.id);
                 setIsSaved(userIsSaved);
             })
             .catch((error) => console.log(error));
-    }, [post._id, user.id]);
+    }, [post._id, user?.id]);
     
     console.log(allUser);
     async function fetchFiles() {
@@ -112,33 +88,11 @@ export default function PostCard({ post, onPost }) {
         }
     }
 
-    // async function toggleSave() {
-    //     if (!isSaved) {
-    //         try {
-    //             await savePost(post.id, currentUser.uid)
-    //             setIsSaved(true)
-    //             toast.success("Save post successfully")
-    //         } catch (error) {
-    //             setIsSaved(false)
-    //             toast.error("Could not save the post")
-    //         }
-    //     } else {
-    //         try {
-    //             for (let i = 0; i < savedPost.length; i++) {
-    //                 await removeSavedPost(savedPost[i].id);
-    //             }
-    //             setIsSaved(false);
-    //             toast.success("Remove from your saved posts")
-    //         } catch (error) {
-    //             toast.error("Something went wrong")
-    //         }
-    //     }
-    // }}
     async function toggleSave() {
         if (!isSaved) {
             try {
                 const payload = {
-                    userId: user.id,
+                    userId: user?.id,
                     postId: post._id
                 }
                 await axios.post("/save/create", payload);
@@ -153,7 +107,7 @@ export default function PostCard({ post, onPost }) {
         } else {
             try {
                 const payload = {
-                    userId: user.id,
+                    userId: user?.id,
                     postId: post._id
                 }
                 // await axios.delete("/save/delete", payload);
@@ -169,22 +123,11 @@ export default function PostCard({ post, onPost }) {
         }
     }
 
-
-    // async function fetchLikes() {
-    //     const q = query(likesFirestore, where("post_id", "==", post.id));
-    //     const querySnapshot = await getDocs(q)
-    //     const getLikes = []
-    //     querySnapshot.forEach((doc) => {
-    //         getLikes.push({ ...doc.data(), id: doc.id })
-    //     });
-    //     setLikes(getLikes)
-    // }
-
     async function fetchLikes() {
         try {
             const {data} = await axios.get(`/like/get?postId=${post._id}`)
             setLikes(data.length);
-            setIsLikedByMe(!!data.find(like => like.userId === user.id))
+            setIsLikedByMe(!!data.find(like => like.userId === user?.id))
         } catch(error) {
             console.log(error);
             toast.error("Contact the admin, NOW!!!")
@@ -197,27 +140,13 @@ export default function PostCard({ post, onPost }) {
 
     useEffect(() => {
         fetchLikes();
-    }, [post._id, user.id])
-
-    // const isLikedByMe = !!likes.find(like => like.userId === user.id)
-    // const isLikedByMe = false;
-
-    // async function toggleLike() {
-    //     if (!isLikedByMe) {
-    //         await addLike(post.id, currentUser.uid)
-    //         fetchLikes()
-    //     } else {
-    //         const myLike = likes.find(like => like.user_id === currentUser?._id)
-    //         await removeLike(myLike.id)
-    //         fetchLikes()
-    //     }
-    // }
+    }, [post._id, user?.id])
 
     async function toggleLike() {
         if (!isLikedByMe) {
             try {
                 const payload = {
-                    userId: user.id,
+                    userId: user?.id,
                     postId: post._id
                 }
                 await axios.post("/like/create", payload);
@@ -339,7 +268,7 @@ export default function PostCard({ post, onPost }) {
                     </svg>
                     {likes}
                 </button>
-                <button className="flex gap-2 item-center">
+                {/* <button className="flex gap-2 item-center">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M2.25 12.76c0 1.6 1.123 2.994 2.707 3.227 1.087.16 2.185.283 3.293.369V21l4.076-4.076a1.526 1.526 0 011.037-.443 48.282 48.282 0 005.68-.494c1.584-.233 2.707-1.626 2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 48.394 0 0012 3c-2.392 0-4.744.175-7.043.513C3.373 3.746 2.25 5.14 2.25 6.741v6.018z" />
                     </svg>
@@ -349,7 +278,7 @@ export default function PostCard({ post, onPost }) {
                         <path strokeLinecap="round" strokeLinejoin="round" d="M7.217 10.907a2.25 2.25 0 100 2.186m0-2.186c.18.324.283.696.283 1.093s-.103.77-.283 1.093m0-2.186l9.566-5.314m-9.566 7.5l9.566 5.314m0 0a2.25 2.25 0 103.935 2.186 2.25 2.25 0 00-3.935-2.186zm0-12.814a2.25 2.25 0 103.933-2.185 2.25 2.25 0 00-3.933 2.185z" />
                     </svg>
                     3
-                </button>
+                </button> */}
             </div>
         </Card>
     )

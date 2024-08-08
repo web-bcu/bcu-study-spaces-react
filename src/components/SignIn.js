@@ -2,7 +2,7 @@ import {BiUser} from "react-icons/bi";
 import {AiOutlineUnlock} from "react-icons/ai";
 import {BeatLoader} from "react-spinners";
 import axios from "axios";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { toast } from "sonner";
 import { useAuth } from "../contexts/UserContext";
 import avatarData from '../data/avatarData'
@@ -15,7 +15,6 @@ export default function SignIn() {
     }
 
     if (userLoggedIn) pushMain();
-    // font-lobster font-normal
     return (
         <div className="relative text-white h-[100vh] flex justify-center items-center ">
             <img src="https://c1.wallpaperflare.com/preview/1/1010/561/table-work-computer-study-reading.jpg" className="h-screen w-screen absolute"/>
@@ -49,40 +48,6 @@ function Register({handleShow}) {
     const [password, setPassword] = useState('');
     const [confirmPass, setConfirmPass] = useState('');
     const [isSigningUp, setIsSigningUp] = useState(false);
-    const [errorMessage, setErrorMessage] = useState('');
-    // const avatar = useSelector((state) => state.avatar.value);
-    // console.log(avatar[0].image_url);
-    
-
-    // const onSubmit = async (e) => {
-    //     e.preventDefault();
-    //     if (!email.includes("@gm.uit.edu.vn")) {
-    //         toast.error("Your email must have @gm.uit.edu.vn");
-    //         return;
-    //     }
-    //     if (password.length < 6) {
-    //         toast.error("Your password must have more than 6 characters");
-    //         return;
-    //     }
-
-    //     try {
-    //         if (!isSigningUp && password === confirmPass) {
-    //             setIsSigningUp(true);
-    //             // const index = getRandomInt(1, avatar.length - 1);
-    //             console.log("Here");
-    //             // await signUpNewUser(email, password, name, avatar[index].image_url);
-    //             // await signUpNewUser(email, password);
-    //         }
-    //         else if (password !== confirmPass) {
-    //             toast.error("Confirm your Password correctly!")
-    //         }
-    //         setIsSigningUp(false);
-    //     } catch (e) {
-    //         toast.error("Error ocured! Please try again later or contact the owner");
-    //         // toast.error(e);
-    //         setIsSigningUp(false)
-    //     }
-    // }
 
     async function onSubmit(e) {
         e.preventDefault();
@@ -184,28 +149,7 @@ function Login({showLogin, handleShow}) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [isSigningIn, setIsSigningIn] = useState(false);
-    const [errorMessage, setErrorMessage] = useState('');
-    const {setUser, setUserLoggedIn} = useAuth();
-
-    // const onSubmit = async(e) => {
-    //     e.preventDefault();
-    //     try {
-    //         if (!isSigningIn) {
-    //             setIsSigningIn(true);
-    //             const response = await signInUser(email, password);
-    //             if (response.message === "Not Found") {
-    //                 toast.error("You have not signed up yet!");
-    //                 setIsSigningIn(false);
-    //                 return;
-    //             }
-    //             setIsSigningIn(false);
-    //             return;
-    //         }
-    //     } catch(e) {
-    //         toast.error("Check your email and Password again or create another account");
-    //         setIsSigningIn(false);
-    //     }
-    // }
+    const {setUser, setUserLoggedIn, fetchUser} = useAuth();
 
     const onSubmit = async (e) => {
         e.preventDefault();
@@ -219,12 +163,14 @@ function Login({showLogin, handleShow}) {
                 toast.error(data.error);
                 setIsSigningIn(false);
             } else {
+                console.log(data.token);
                 setPassword("");
                 setEmail("");
                 setUser();
+                localStorage.setItem("token", data.token)
                 setUserLoggedIn(true);
                 setIsSigningIn(false);
-                // router.push('/dashboard/forum')
+                fetchUser(data.token);
             }
         } catch(error) {
             console.log(error);
@@ -262,14 +208,6 @@ function Login({showLogin, handleShow}) {
                     <label htmlFor="" className="absolute text-xl text-black duration-300 transform -translate-y-6 scale-75 -top-1 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-purple-600 peer-focus:dark:text-purple-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Your Password</label>
                     <AiOutlineUnlock className="absolute -top-2 right-4 text-xl"/>
                 </div>
-
-                {/* <div className="relative my-4">
-                    <input type="password" className="block w-[500px] py-2.3 px-0 text-xl text-purple-500 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:focus:border-purple-500 focus:outline-none focus:ring-0 focus:text-purple-500 focus:border-purple-600 peer " placeholder=""/>
-                    <label htmlFor="" className="absolute text-xl text-purple-500 duration-300 transform -translate-y-6 scale-75 -top-1 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-purple-600 peer-focus:dark:text-purple-500 peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6">Confirm your Password</label>
-                </div> */}
-                {/* <div className="relative -mt-4">
-                    <span className="absolute right-0 text-black hover:text-purple-500"><a href="#">Forgot your password?</a></span>
-                </div> */}
                     
                 <button className="w-[500px] mb-4 text-[18px] mt-6 rounded-full text-white hover:bg-purple-600 bg-black py-2 transition-colors duration-300">
                     {isSigningIn ? <BeatLoader color="#FFF" /> : "Login" }

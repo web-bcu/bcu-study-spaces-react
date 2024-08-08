@@ -1,9 +1,9 @@
 import axios from "axios";
 import { createContext, useContext, useEffect, useState } from "react";
 import adminList from "../data/adminList";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch} from "react-redux";
 import { setAdmin } from "../redux/slices/admin";
-import { setFileList } from "../redux/slices/fileList";
+import { toast } from "sonner";
 
 export const UserContext = createContext({});
 
@@ -11,8 +11,8 @@ export function useAuth() {
     return useContext(UserContext);
 }
 
-export function UserContextProvider({children}) {
-    const [user, setUser] = useState(null);
+export function UserContextProvider({ children }) {
+    const [user, setUser] = useState("loading");
     const [userLoggedIn, setUserLoggedIn] = useState(false);
     const [fileList, setFileList] = useState();
     const dispatch = useDispatch();
@@ -23,38 +23,50 @@ export function UserContextProvider({children}) {
         }
     }
 
-    async function fetchFiles (parentId) {
+    const fetchUser = async (token) => {
+        try {
+            if (!user || user === "loading") {
+                const { data } = await axios.get('/user/profile', { 
+                    headers: {
+                        Authorization: token
+                    }
+                })
+                
+                if (data.user) {
+                    setUser(data.user)
+                    checkAdmin(data.user.email)
+                    setUserLoggedIn(true);
+                } else if (data.error) {
+                    setUser(null);
+                }
+            }
+        } catch (err) {
+            toast.error("Could not authenticate user");
+        }
+    }
+
+    async function fetchFiles(parentId) {
         try {
             if (parentId) {
-                const {data} = await axios.get(`/file/get?parentId=${parentId}`);
-                // dispatch(setFileList(data))
+                const { data } = await axios.get(`/file/get?parentId=${parentId}`);
                 setFileList(data)
             } else {
-                const {data} = await axios.get(`/file/get?parentId=${null}`);
+                const { data } = await axios.get(`/file/get?parentId=${null}`);
                 // dispatch(setFileList(data));
                 setFileList(data)
             }
-        } catch(error) {
+        } catch (error) {
             console.log(error);
         }
     }
 
+
     useEffect(() => {
-        if (!user) {
-            axios.get('/user/profile').then(({data}) => {
-                if (data.error) {
-                    console.log(data.error)
-                }
-                else if (data.user) {
-                    setUser(data.user)
-                    checkAdmin(data.user.email)
-                    setUserLoggedIn(true);
-                }
-            }).catch((err) => console.log(err))
-        }
+        const storedToken = localStorage.getItem("token");
+        fetchUser(storedToken)
     }, [user]);
 
-    const valueToPass = {user, setUser, userLoggedIn, fetchFiles, fileList}
+    const valueToPass = { user, setUser, userLoggedIn, fetchFiles, fileList, fetchUser, setUserLoggedIn }
     return (
         <UserContext.Provider value={valueToPass}>
             {children}

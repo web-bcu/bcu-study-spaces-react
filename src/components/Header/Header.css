@@ -85,17 +85,16 @@ header{
     flex-direction: column;
 }
 
-.userItems .avatar .user span {
+.userItems .avatar .user h1 {
     position: absolute;
-    top: 8px;
-
-    color: #ffffff;
-    font-size: 0.8rem;
+    top: 10px;
+    /* color: #ffffff; */
+    /* font-size: 1.3rem; */
 }
 
-.userItems .avatar .user a {
+/* .userItems .avatar .user a {
     position: absolute;
     top: 24px;
     text-decoration: none;
     font-size: 0.7rem;
-}
+} */

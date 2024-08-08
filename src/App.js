@@ -13,9 +13,11 @@ import Folder from "./components/Folder";
 import PuzzleGame from "./components/PuzzleGame/PuzzleGame";
 import SudokuSolver from "./components/SudokuSolver/SudokuSolver";
 import TicTacToe from "./components/TicTacToe/TicTacToe";
+import Loading from "./components/Loading";
 
 axios.defaults.withCredentials = true
-axios.defaults.baseURL = 'http://localhost:8000';
+axios.defaults.baseURL = 'https://backend-mongodb-test.onrender.com';
+// axios.defaults.baseURL = "http://localhost:8000";
 export default function App() {
   const [loggedIn, setLoggedIn] = useState();
   const {user} = useContext(UserContext);
@@ -28,7 +30,10 @@ export default function App() {
     }
   }, [location.pathname, user]);
 
-  if (user === null) {
+  if (user === "loading") {
+    return <Loading/>
+  }
+  else if (user === null) {
     return <SignIn/>
   }
   else if (location.pathname.includes('/games/puzzle_game')) {
