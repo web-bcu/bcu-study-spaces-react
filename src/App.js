@@ -17,8 +17,8 @@ import Loading from "./components/Loading";
 import SavedPost from "./components/SavedPost";
 
 axios.defaults.withCredentials = true
-// axios.defaults.baseURL = 'https://backend-mongodb-test.onrender.com';
-axios.defaults.baseURL = "http://localhost:8000";
+axios.defaults.baseURL = 'https://backend-mongodb-test.onrender.com';
+// axios.defaults.baseURL = "http://localhost:8000";
 export default function App() {
   const [loggedIn, setLoggedIn] = useState();
   const {user, fetchUser, setUser, fetchAdmins} = useContext(UserContext);
