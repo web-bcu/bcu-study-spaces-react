@@ -90,7 +90,7 @@ export default function PostFormCard({ onPost }) {
                 </div>
                 <textarea value={content} onChange={e => setContent(e.target.value)} className="grow p-3 h-14 bg-[#192938] border border-slate-50 text-white" placeholder={`Have something to share ${user?.name}?`} />
             </div>
-            {isCreating || isUploading && <PulseLoader speedMultiplier={2} color={'#348DFA'} />}
+            {(isCreating || isUploading) && <PulseLoader speedMultiplier={2} color={'#348DFA'} />}
             {fileList?.length > 0 && (
                 <div className="mt-2 flex gap-2 flex-col">
                     {fileList.map((file, index) => (

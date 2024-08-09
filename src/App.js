@@ -14,24 +14,26 @@ import PuzzleGame from "./components/PuzzleGame/PuzzleGame";
 import SudokuSolver from "./components/SudokuSolver/SudokuSolver";
 import TicTacToe from "./components/TicTacToe/TicTacToe";
 import Loading from "./components/Loading";
+import SavedPost from "./components/SavedPost";
 
 axios.defaults.withCredentials = true
-axios.defaults.baseURL = 'https://backend-mongodb-test.onrender.com';
-// axios.defaults.baseURL = "http://localhost:8000";
+// axios.defaults.baseURL = 'https://backend-mongodb-test.onrender.com';
+axios.defaults.baseURL = "http://localhost:8000";
 export default function App() {
   const [loggedIn, setLoggedIn] = useState();
-  const {user, fetchUser, setUser} = useContext(UserContext);
+  const {user, fetchUser, setUser, fetchAdmins} = useContext(UserContext);
   const location = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (location.pathname === "/" && user !== null && user !== "loading") {
-      navigate('/forum');
+    if ((location.pathname === "/") && (user !== null) && (user !== "loading")) {
+      navigate('/document');
     }
     if (localStorage.getItem("token") === null) {
       setUser(null);
+      navigate('/');
     }
-  }, [location.pathname, user]
+  }, [location.pathname, user, navigate]
   // []
 );
 
@@ -54,10 +56,11 @@ export default function App() {
   return (
     <LayoutDashBoard>
       <Routes>
-        <Route path="/forum" element={<Forum/>}/>
         <Route path="/document" element={<Document/>}/>
+        <Route path="/forum" element={<Forum/>}/>
         <Route path="/document/:id" element={<Folder/>}/>
         <Route path="/games" element={<Games/>}/>
+        <Route path="/saved_posts" element={<SavedPost/>}/>
       </Routes>
     </LayoutDashBoard>
   )

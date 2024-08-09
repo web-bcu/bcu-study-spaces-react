@@ -79,7 +79,7 @@ export default function UploadFile({ parentId }) {
     }
 
     return (
-        <div className="flex flex-col gap-3">
+        <div className="flex md:flex-col gap-3">
             <div className="flex gap-5">
                 <Button
                     title="Add a file"

@@ -9,9 +9,7 @@ import { Link } from "react-router-dom";
 import Avatar from "./Avatar";
 import axios from "axios";
 import FileFrame from "./FileFrame";
-
-
-const likesFirestore = collection(database, "likes");
+import { PulseLoader } from "react-spinners";
 
 export default function PostCard({ post, onPost }) {
     const { user } = useAuth();
@@ -22,6 +20,7 @@ export default function PostCard({ post, onPost }) {
     const [fileList, setFileList] = useState([]);
     const [allUser, setAllUser] = useState([]);
     const [isLikedByMe, setIsLikedByMe] = useState(false);
+    const [isDeleting, setIsDeleting] = useState(false);
 
     useEffect(() => {
         axios.get(`/user/get?userId=${post.userId}`)
@@ -34,14 +33,13 @@ export default function PostCard({ post, onPost }) {
         axios.get(`/save/getuser?postId=${post._id}`)
             .then(({ data }) => {
                 const allUsers = data.filter(info => info.userId);
-    
+
                 const userIsSaved = allUsers.some(info => info.userId === user?.id);
                 setIsSaved(userIsSaved);
             })
             .catch((error) => console.log(error));
     }, [post._id, user?.id]);
-    
-    console.log(allUser);
+
     async function fetchFiles() {
         try {
             const { data } = await axios.get(`/file/get?parentId=${post._id}`)
@@ -68,22 +66,23 @@ export default function PostCard({ post, onPost }) {
             data.forEach(async (file) => {
                 await axios.delete(`/file/delete?fileId=${file._id}`)
             })
-            toast.success("Folder deleted!!!")
+            toast.success("Deleted!!!")
         } catch (err) {
             toast.error("Could not delete the file of the post");
         }
     }
 
     async function deleteThePost() {
+        setIsDeleting(true)
         try {
             deleteFiles(post._id)
             await axios.delete(`/post/delete?postId=${post._id}`)
             toast.success("Post deleted");
-
         } catch (error) {
             console.log(error);
             toast.error("Could not delete the post")
         } finally {
+            setIsDeleting(false);
             onPost();
         }
     }
@@ -125,18 +124,16 @@ export default function PostCard({ post, onPost }) {
 
     async function fetchLikes() {
         try {
-            const {data} = await axios.get(`/like/get?postId=${post._id}`)
+            const { data } = await axios.get(`/like/get?postId=${post._id}`)
             setLikes(data.length);
             setIsLikedByMe(!!data.find(like => like.userId === user?.id))
-        } catch(error) {
+        } catch (error) {
             console.log(error);
             toast.error("Contact the admin, NOW!!!")
         } finally {
             onPost();
         }
     }
-
-    console.log(likes);
 
     useEffect(() => {
         fetchLikes();
@@ -237,12 +234,34 @@ export default function PostCard({ post, onPost }) {
                                         </svg>
                                         Hide post
                                     </a> */}
-                                    {post?.userId === user.id && <button onClick={() => deleteThePost()} className="flex gap-3 my-2 py-2 hover:bg-socialBlue hover:text-white -mx-4 px-4 rounded-md transition-all hover:scale-110 hover:shadow-md shadow-gray-300">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
-                                            <path strokeLinecap="round" strokeLinejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
-                                        </svg>
-                                        Delete
-                                    </button>}
+                                    {post?.userId === user?.id && (
+                                        isDeleting ? (
+                                            <PulseLoader color="#89CFF0" />
+                                        ) : (
+                                            <button
+                                                onClick={deleteThePost}
+                                                className="flex gap-3 my-2 py-2 hover:bg-socialBlue hover:text-white -mx-4 px-4 rounded-md transition-all hover:scale-110 hover:shadow-md shadow-gray-300"
+                                                disabled={isDeleting}
+                                            >
+                                                <svg
+                                                    xmlns="http://www.w3.org/2000/svg"
+                                                    fill="none"
+                                                    viewBox="0 0 24 24"
+                                                    strokeWidth={1.5}
+                                                    stroke="currentColor"
+                                                    className="w-6 h-6"
+                                                >
+                                                    <path
+                                                        strokeLinecap="round"
+                                                        strokeLinejoin="round"
+                                                        d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
+                                                    />
+                                                </svg>
+                                                Delete
+                                            </button>
+                                        )
+                                    )}
+
                                     {/* <a href="" className="flex gap-3 my-2 py-2 hover:bg-socialBlue hover:text-white -mx-4 px-4 rounded-md transition-all hover:scale-110 hover:shadow-md shadow-gray-300">
                                         <span className="w-6 px-1"><FontAwesomeIcon icon={faDownload}/></span>
                                         Save

@@ -12,7 +12,7 @@ export default function Folder() {
     return (
         <div>
             {admin && <UploadFile parentId={id}/>}
-            <div className="mt-10 w-full">
+            <div className="w-full mt-10">
                 <ShowFiles parentId={id}/>
             </div>
         </div>

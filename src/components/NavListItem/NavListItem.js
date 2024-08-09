@@ -9,7 +9,7 @@ export default function NavListItem({ section }) {
             <Link to={section.link} className={`${pathname.includes(section.link) ? "active" : undefined}`}>
                 <span className="w-10 h-10 text-2xl flex justify-center items-center">{section.icon}</span>
                 {/* {section.icon} */}
-                <span className="navName">{section.name}</span>
+                <span className="navName md:flex hidden">{section.name}</span>
             </Link>
         </li>
     )

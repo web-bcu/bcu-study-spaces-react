@@ -8,7 +8,7 @@ export default function Document() {
     return (
         <div>
             {admin && <UploadFile parentId={null}/>}
-            <div className="mt-10 w-full">
+            <div className="w-full mt-10">
                 <ShowFiles parentId={null}/>
             </div>
         </div>

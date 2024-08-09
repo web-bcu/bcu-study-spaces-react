@@ -37,11 +37,10 @@ export default function Forum() {
     return (
         <div>
             <PostFormCard onPost={fetchPosts}/>
-            <div className="h-screen flex flex-col gap-3 overflow-y-auto rounded-lg">
+            <div className=" flex flex-col gap-3 rounded-lg">
                 {allPosts?.map(post => (
                     <PostCard key={post._id} post={post} onPost={fetchPosts}/>
                 ))}
-                <p className="mb-60"></p>
             </div>
         </div>
     )

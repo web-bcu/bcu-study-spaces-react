@@ -14,7 +14,7 @@ header{
 }
 
 .menu {
-    font-size: 1.8rem;
+    font-size: 0.3rem;
     color: #ffffff;
 }
 
@@ -58,7 +58,7 @@ header{
 }
 
 .userItems .avatar{
-    width: 170px;
+    width: 250px;
     height: 50px;
     padding: 10px 20px;
     display: flex;
@@ -83,11 +83,13 @@ header{
 .userItems .avatar .user {
     display: flex;
     flex-direction: column;
+    /* width: 200px; */
 }
 
 .userItems .avatar .user h1 {
     position: absolute;
     top: 10px;
+    /* right: 10px; */
     /* color: #ffffff; */
     /* font-size: 1.3rem; */
 }
@@ -97,4 +99,107 @@ header{
     top: 24px;
     text-decoration: none;
     font-size: 0.7rem;
+} */
+
+/* @media (max-width: 1024px) {
+    header {
+        padding: 10px;
+    }
+
+    .menu {
+        font-size: 1.5rem;
+    }
+
+    .userItems {
+        gap: 15px;
+    }
+
+    .userItems .avatar {
+        width: 150px;
+        height: 45px;
+        padding: 8px 15px;
+    }
+
+    .userItems .avatar a {
+        font-size: 1.6rem;
+    }
+}
+
+/* For small screens (phones) */
+/* @media screen and (max-width: 768px) {
+    header {
+        padding: 8px;
+    }
+
+    .menu {
+        font-size: 1.3rem;
+    }
+
+    .userItems {
+        gap: 10px;
+    }
+
+    .userItems .icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+    }
+
+    .userItems .avatar {
+        width: 130px;
+        height: 40px;
+        padding: 6px 12px;
+    }
+
+    .userItems .avatar img {
+        width: 30px;
+        height: 30px;
+    }
+
+    .userItems .avatar a {
+        font-size: 1.4rem;
+    }
+
+    .userItems .avatar .user h1 {
+        font-size: 1.1rem;
+    }
+}  */
+
+/* @media screen and (max-width: 480px) {
+    header {
+        padding: 5px;
+    }
+
+    .menu {
+        font-size: 1rem;
+    }
+
+    .userItems {
+        gap: 5px;
+    }
+
+    .userItems .icon {
+        width: 35px;
+        height: 35px;
+        font-size: 1rem;
+    }
+
+    .userItems .avatar {
+        width: 100px;
+        height: 35px;
+        padding: 5px 8px;
+    }
+
+    .userItems .avatar img {
+        width: 25px;
+        height: 25px;
+    }
+
+    .userItems .avatar a {
+        font-size: 1.2rem;
+    }
+
+    .userItems .avatar .user h1 {
+        font-size: 0.9rem;
+    }
 } */

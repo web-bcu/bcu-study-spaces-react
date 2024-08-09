@@ -14,6 +14,46 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    /* gap: 30px; */
+    overflow: hidden;
+    transition: 0.5s;
+}
+
+.banner {
+    position: relative;
+    width: 80%;
+    height: 100%;
+    border-radius: 30px;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    background: #0d171f;
+    box-shadow: -5px -5px 15px rgba(255, 255, 255, 0.1),
+        5px 5px 15px rgba(0, 0, 0, 0.35);
+    transition: 1s;
+    padding: 5px;
+}
+
+.banner.active {
+    position: relative;
+    width: 93%;
+    transition: 1s;
+}
+
+.layoutDashBoard {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 10px;
+    border: 8px solid #0d171f;
+    background: #0d171f;
+    box-shadow: -5px -5px 15px rgba(255, 255, 255, 0.15),
+        5px 5px 15px rgba(0, 0, 0, 0.35),
+        inset -5px -5px 15px rgba(255, 255, 255, 0.15),
+        inset 5px 5px 15px rgba(0, 0, 0, 0.35);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
     gap: 30px;
     overflow: hidden;
     transition: 0.5s;
@@ -36,5 +76,43 @@
     position: relative;
     width: 93%;
     transition: 1s;
+}
+
+@media (max-width: 768px) {
+    .layoutDashBoard {
+        flex-direction: column;
+        padding: 6px;
+        gap: 15px;
+        border-width: 4px;
+    }
+
+    .banner {
+        width: 100%;
+        height: auto;
+        border-radius: 20px;
+    }
+
+    .banner.active {
+        width: 100%;
+    }
+}
+
+/* For extra small screens (very small phones) */
+@media screen and (max-width: 768px) {
+    .layoutDashBoard {
+        padding: 5px;
+        gap: 10px;
+        border-width: 3px;
+    }
+
+    .banner {
+        width: 100%;
+        height: 100%;
+        border-radius: 15px;
+    }
+
+    .banner.active {
+        width: 100%;
+    }
 }
 

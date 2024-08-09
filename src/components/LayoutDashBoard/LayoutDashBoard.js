@@ -23,7 +23,10 @@ export default function LayoutDashBoard({children}) {
                 <Header
                     toggleActive={handleToggleActive} 
                 />
-                {children}
+                <div className="h-screen overflow-y-auto">
+                    {children}
+                    <p className="mb-60"></p>
+                </div>
             </div>
         </main>
     )

@@ -1,10 +1,8 @@
-import axios from "axios";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom"
 import FileFrame from "./FileFrame";
 import FolderFrame from "./FolderFrame";
 import { useAuth } from "../contexts/UserContext";
-import { useSelector } from "react-redux";
 
 export default function ShowFiles({parentId}) {
     const navigate = useNavigate();

@@ -1,8 +1,7 @@
 import axios from "axios";
 import { createContext, useContext, useEffect, useState } from "react";
-import adminList from "../data/adminList";
 import { useDispatch} from "react-redux";
-import { setAdmin } from "../redux/slices/admin";
+import admin, { setAdmin } from "../redux/slices/admin";
 import { toast } from "sonner";
 
 export const UserContext = createContext({});
@@ -16,12 +15,13 @@ export function UserContextProvider({ children }) {
     const [userLoggedIn, setUserLoggedIn] = useState(false);
     const [fileList, setFileList] = useState();
     const dispatch = useDispatch();
+    
 
-    function checkAdmin(email) {
-        if (adminList.includes(email)) {
-            dispatch(setAdmin(true));
-        }
-    }
+    // function checkAdmin(email) {
+    //     if (adminList.includes(email)) {
+    //         dispatch(setAdmin(true));
+    //     }
+    // }
 
     const fetchUser = async () => {
         const storedToken = localStorage.getItem("token");
@@ -61,12 +61,32 @@ export function UserContextProvider({ children }) {
         }
     }
 
+    async function fetchAdmins() {
+        try {
+            const {data} = await axios.get('/admin/get')
+            const adminEmail = data.filter(admin => admin.email);
+            dispatch(setAdmin(adminEmail.some(admin => admin.email === user?.email)))
+        } catch(error) {
+            console.log(error)
+        }
+    }
+
+    // useEffect(() => {
+    //     fetchAdmins();
+    // }, [])
+    // useEffect(() => {
+    //     fetchAdmins();
+    //     fetchUser();
+    // }, [user]);
 
     useEffect(() => {
-        fetchUser();
+        if (user === "loading") {
+            fetchUser();
+        }
+        fetchAdmins();
     }, [user]);
 
-    const valueToPass = { user, setUser, userLoggedIn, fetchFiles, fileList, fetchUser, setUserLoggedIn }
+    const valueToPass = { user, setUser, userLoggedIn, fetchFiles, fileList, fetchUser, setUserLoggedIn, fetchAdmins}
     return (
         <UserContext.Provider value={valueToPass}>
             {children}

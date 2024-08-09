@@ -12,7 +12,7 @@ export default function Header({toggleActive}) {
 
     return (
         <header>
-            <a  className="menu" onClick={toggleActive}>
+            <a  className="menu md:flex hidden" onClick={toggleActive}>
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" className="bi bi-sliders" viewBox="0 0 16 16">
                     <path fillRule="evenodd" d="M11.5 2a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M9.05 3a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0V3zM4.5 7a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3M2.05 8a2.5 2.5 0 0 1 4.9 0H16v1H6.95a2.5 2.5 0 0 1-4.9 0H0V8zm9.45 4a1.5 1.5 0 1 0 0 3 1.5 1.5 0 0 0 0-3m-2.45 1a2.5 2.5 0 0 1 4.9 0H16v1h-2.05a2.5 2.5 0 0 1-4.9 0H0v-1z" />
                 </svg>
@@ -38,7 +38,7 @@ export default function Header({toggleActive}) {
                         alt='User Image'/>
                     </a>
                     <div className="user">
-                        <h1 className={`bg-gradient-to-r ${admin ? " from-[#FF930F]  to-[#FFF95B] text-3xl" : "text-xl from-[#ebf4f5]  to-[#b5c6e0]"} inline-block text-transparent bg-clip-text`}>{user?.name}</h1>
+                        <h1 className={`bg-gradient-to-r ${admin ? " from-[#FF930F]  to-[#FFF95B] text-3xl" : "text-xl from-[#ebf4f5]  to-[#b5c6e0]"} inline-block text-transparent bg-clip-text w-80`}>{user?.name}</h1>
                     </div>
                 </div>
             </div>

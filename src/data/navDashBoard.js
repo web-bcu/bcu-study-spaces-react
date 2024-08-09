@@ -1,15 +1,8 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faForumbee,   } from '@fortawesome/free-brands-svg-icons';
-import { faFile, faUsers, faGamepad } from '@fortawesome/free-solid-svg-icons';
+import { faForumbee } from '@fortawesome/free-brands-svg-icons';
+import { faFile, faGamepad, faSave } from '@fortawesome/free-solid-svg-icons';
 
 export const NavDashBoards = [
-    {
-        link: "/forum",
-        name: "Forum",
-        icon: (
-            <FontAwesomeIcon icon={faForumbee} />
-        ),
-    },
     {
         link: "/document",
         name: "Documents",
@@ -18,17 +11,24 @@ export const NavDashBoards = [
         )
     },
     {
+        link: "/forum",
+        name: "Forum",
+        icon: (
+            <FontAwesomeIcon icon={faForumbee} />
+        ),
+    },
+    {
         link: "/games",
         name: "Games",
         icon: (
             <FontAwesomeIcon icon={faGamepad} />
         )
     },
-    // {
-    //     link: "/dashboard/groups",
-    //     name: "Groups",
-    //     icon: (
-    //         <FontAwesomeIcon icon={faUsers} />
-    //     )
-    // }
+    {
+        link: "/saved_posts",
+        name: "Saved Posts",
+        icon: (
+            <FontAwesomeIcon icon={faSave} />
+        )
+    }
 ]
