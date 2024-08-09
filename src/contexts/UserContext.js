@@ -35,7 +35,6 @@ export function UserContextProvider({ children }) {
                 
                 if (data.user) {
                     setUser(data.user)
-                    checkAdmin(data.user.email)
                     setUserLoggedIn(true);
                 } else if (data.error) {
                     setUser(null);
