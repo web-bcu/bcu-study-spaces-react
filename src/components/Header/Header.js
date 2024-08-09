@@ -31,7 +31,7 @@ export default function Header({toggleActive}) {
                     <FontAwesomeIcon icon={faFloppyDisk}/>
                     <span className='bag bg-gradient-to-r from-[#432371] to-[#faae7b]'>0</span>
                 </a> */}
-                <div className='avatar justify-start items-center' onClick={userProfile}>
+                <div className='avatar justify-start items-center'>
                     <a href='#'>
                         <img 
                         src={user?.avatar} 

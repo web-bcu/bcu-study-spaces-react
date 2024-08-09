@@ -36,7 +36,7 @@ export function UserContextProvider({ children }) {
                 if (data.user) {
                     setUser(data.user)
                     setUserLoggedIn(true);
-                } else if (data.error) {
+                } else if (data.error || data.message) {
                     setUser(null);
                 }
             }
