@@ -11,7 +11,7 @@ export function useAuth() {
 }
 
 export function UserContextProvider({ children }) {
-    const [user, setUser] = useState("loading");
+    const [user, setUser] = useState(null);
     const [userLoggedIn, setUserLoggedIn] = useState(false);
     const [fileList, setFileList] = useState();
     const dispatch = useDispatch();
@@ -24,6 +24,7 @@ export function UserContextProvider({ children }) {
     // }
 
     const fetchUser = async () => {
+        setUser("loading")
         const storedToken = localStorage.getItem("token");
         try {
             if (!user || user === "loading") {
