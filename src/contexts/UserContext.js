@@ -11,7 +11,7 @@ export function useAuth() {
 }
 
 export function UserContextProvider({ children }) {
-    const [user, setUser] = useState(null);
+    const [user, setUser] = useState("loading");
     const [userLoggedIn, setUserLoggedIn] = useState(false);
     const [fileList, setFileList] = useState();
     const dispatch = useDispatch();

@@ -23,9 +23,9 @@ export default function FolderFrame({folderId, folderName, parentId}) {
         } catch (error) {
             toast.error("Could not change the folder name");
         } finally {
-            // window.location.reload();
+            window.location.reload();
             // setToggle(!toggle);
-            fetchFiles(parentId)
+            // fetchFiles(parentId)
         }
     }
 
